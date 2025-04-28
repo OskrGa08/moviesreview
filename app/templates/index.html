@@ -1,12 +1,12 @@
-<!-- templates/index.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Inicio</title>
-</head>
-<body>
-    <h1>Bienvenido al Sistema de Reseñas</h1>
-</body>
-</html>
+{% block content %}
+<h2>Películas</h2>
+<ul>
+    {% for pelicula in peliculas %}
+    <li>
+        <a href="{{ url_for('main.pelicula', id=pelicula.id_pelicula) }}">{{ pelicula.titulo }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
