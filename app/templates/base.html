@@ -9,7 +9,9 @@
     <header>
         <h1>Mi App de Reseñas</h1>
         <nav>
-            <a href="/">Inicio</a>
+            <a href="{{ url_for('main.index') }}">Inicio</a>
+            <a href="{{ url_for('main.nuevo_usuario') }}">Crear Usuario</a>
+            <a href="{{ url_for('main.nueva_pelicula') }}">Crear Película</a>
         </nav>
     </header>
 

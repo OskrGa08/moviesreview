@@ -5,7 +5,9 @@
 <ul>
     {% for pelicula in peliculas %}
     <li>
-        <a href="{{ url_for('main.pelicula', id=pelicula.id_pelicula) }}">{{ pelicula.titulo }}</a>
+        <img src="{{ pelicula.portada }}" alt="Portada de {{ pelicula.titulo }}" style="width:150px;height:auto;">        <strong>{{ pelicula.titulo }}</strong> - {{ pelicula.director }}<br>
+        {{ pelicula.descripcion }}<br>
+        <em>Fecha de lanzamiento:</em> {{ pelicula.fecha_lanzamiento }}
     </li>
     {% endfor %}
 </ul>

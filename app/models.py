@@ -6,13 +6,14 @@ class Usuario(db.Model):
     correo = db.Column(db.String(150), unique=True)
     contraseña = db.Column(db.String(255))
     fecha_registro = db.Column(db.DateTime)
-
+    
 class Pelicula(db.Model):
     id_pelicula = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(200))
     director = db.Column(db.String(150))
     descripcion = db.Column(db.Text)
     fecha_lanzamiento = db.Column(db.Date)
+    portada = db.Column(db.String(255))  # Nueva columna para la imagen de portada
 
 class Resena(db.Model):
     id_resena = db.Column(db.Integer, primary_key=True)
