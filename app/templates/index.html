@@ -5,9 +5,13 @@
 <ul>
     {% for pelicula in peliculas %}
     <li>
-        <img src="{{ pelicula.portada }}" alt="Portada de {{ pelicula.titulo }}" style="width:150px;height:auto;">        <strong>{{ pelicula.titulo }}</strong> - {{ pelicula.director }}<br>
+        <img src="{{ pelicula.portada if pelicula.portada else 'https://via.placeholder.com/150' }}" 
+             alt="Portada de {{ pelicula.titulo }}" 
+             style="width:150px;height:auto;">
+        <strong>{{ pelicula.titulo }}</strong> - {{ pelicula.director }}<br>
         {{ pelicula.descripcion }}<br>
-        <em>Fecha de lanzamiento:</em> {{ pelicula.fecha_lanzamiento }}
+        <em>Fecha de lanzamiento:</em> {{ pelicula.fecha_lanzamiento }}<br>
+        <a href="{{ url_for('main.pelicula', id=pelicula.id_pelicula) }}">Ver detalles</a>
     </li>
     {% endfor %}
 </ul>

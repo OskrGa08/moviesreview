@@ -10,6 +10,18 @@
         <h1>Mi App de Reseñas</h1>
         <nav>
             <a href="{{ url_for('main.index') }}">Inicio</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.logout') }}">Cerrar Sesión</a>
+            {% else %}
+                <a href="{{ url_for('main.login') }}">Iniciar Sesión</a>
+                <a href="{{ url_for('main.registro') }}">Registrarse</a>
+            {% endif %}
+        </nav>
+        {% if current_user.is_authenticated %}
+            <p>Bienvenido, {{ current_user.nombre }}</p>
+        {% endif %}
+        <nav>
+            <a href="{{ url_for('main.index') }}">Inicio</a>
             <a href="{{ url_for('main.nuevo_usuario') }}">Crear Usuario</a>
             <a href="{{ url_for('main.nueva_pelicula') }}">Crear Película</a>
         </nav>
