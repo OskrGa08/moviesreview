@@ -11,7 +11,35 @@
         <strong>{{ pelicula.titulo }}</strong> - {{ pelicula.director }}<br>
         {{ pelicula.descripcion }}<br>
         <em>Fecha de lanzamiento:</em> {{ pelicula.fecha_lanzamiento }}<br>
-        <a href="{{ url_for('main.pelicula', id=pelicula.id_pelicula) }}">Ver detalles</a>
+
+        <h3>Reseñas:</h3>
+        <ul>
+            {% for resena in pelicula.resenas %}
+            <li>
+                <strong>{{ resena.usuario.nombre }}</strong>: {{ resena.comentario }}<br>
+                <em>Puntuación:</em> {{ resena.puntuacion }}
+                {% if current_user.is_authenticated and resena.id_usuario == current_user.id_usuario %}
+                    <!-- Opciones para editar o eliminar reseñas -->
+                    <a href="{{ url_for('main.editar_resena', id=resena.id_resena) }}">Editar</a>
+                    <form action="{{ url_for('main.eliminar_resena', id=resena.id_resena) }}" method="POST" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% if current_user.is_authenticated %}
+        <h4>Agregar Reseña:</h4>
+        <form method="POST" action="{{ url_for('main.detalle_pelicula', id=pelicula.id_pelicula) }}">
+            <textarea name="comentario" placeholder="Escribe tu reseña..." required></textarea><br>
+            <label for="puntuacion">Puntuación:</label>
+            <input type="number" name="puntuacion" min="1" max="5" required><br>
+            <button type="submit">Agregar Reseña</button>
+        </form>
+        {% else %}
+        <p><a href="{{ url_for('main.login') }}">Inicia sesión</a> o <a href="{{ url_for('main.registro') }}">regístrate</a> para agregar una reseña.</p>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

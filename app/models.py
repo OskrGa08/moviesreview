@@ -6,7 +6,7 @@ class Usuario(UserMixin, db.Model):
     nombre = db.Column(db.String(100))
     correo = db.Column(db.String(150), unique=True)
     contraseña = db.Column(db.String(255))
-    fecha_registro = db.Column(db.DateTime)
+    resenas = db.relationship('Resena', backref='usuario', lazy=True)
 
 class Pelicula(db.Model):
     id_pelicula = db.Column(db.Integer, primary_key=True)
@@ -15,12 +15,12 @@ class Pelicula(db.Model):
     descripcion = db.Column(db.Text)
     fecha_lanzamiento = db.Column(db.Date)
     portada = db.Column(db.String(255))  # Ruta del archivo de la portada
-    resenas = db.relationship('Resena', backref='pelicula', lazy=True)  # Relación con las reseñas
+    resenas = db.relationship('Resena', backref='pelicula', lazy=True)
 
 class Resena(db.Model):
     id_resena = db.Column(db.Integer, primary_key=True)
-    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'))
-    id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'))
     comentario = db.Column(db.Text)
     puntuacion = db.Column(db.Integer)
-    fecha_resena = db.Column(db.DateTime)
+    fecha_resena = db.Column(db.DateTime, default=db.func.current_timestamp())
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'), nullable=False)
+    id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'), nullable=False)
