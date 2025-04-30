@@ -16,7 +16,7 @@ class Pelicula(db.Model):
     titulo = db.Column(db.String(200))
     director = db.Column(db.String(150))
     descripcion = db.Column(db.Text)
-    fecha_lanzamiento = db.Column(db.Date)
+    fecha_lanzamiento = db.Column(db.Date)  # Asegúrate de que sea de tipo Date
     portada = db.Column(db.String(255))  # Ruta del archivo de la portada
     resenas = db.relationship('Resena', backref='pelicula', lazy=True)
 

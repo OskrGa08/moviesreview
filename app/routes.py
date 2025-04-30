@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import Usuario, Pelicula, Resena, db
 from sqlalchemy.orm import joinedload
+from datetime import datetime
 
 main = Blueprint('main', __name__)
 
@@ -108,10 +109,10 @@ def login():
         usuario = Usuario.query.filter_by(correo=correo).first()
         if usuario and check_password_hash(usuario.contraseña, contraseña):
             login_user(usuario)
-            flash('Has iniciado sesión exitosamente.')
-            return redirect(url_for('main.index'))  # Redirigir al inicio
+            flash('Has iniciado sesión exitosamente.', 'success')
+            return redirect(url_for('main.index'))
         else:
-            flash('Correo o contraseña incorrectos.')
+            flash('Correo o contraseña incorrectos.', 'error')
 
     return render_template('login.html')
 
@@ -133,6 +134,13 @@ def nueva_pelicula():
         descripcion = request.form['descripcion']
         fecha_lanzamiento = request.form['fecha_lanzamiento']
         portada = request.form['portada']
+
+        # Convertir la fecha de lanzamiento a un objeto datetime.date
+        try:
+            fecha_lanzamiento = datetime.strptime(fecha_lanzamiento, '%Y-%m-%d').date()
+        except ValueError:
+            flash('Formato de fecha inválido. Usa el formato AAAA-MM-DD.')
+            return redirect(url_for('main.nueva_pelicula'))
 
         nueva_pelicula = Pelicula(
             titulo=titulo,

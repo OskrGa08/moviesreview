@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="login-container">
     <h2>Iniciar Sesión</h2>
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
     <form method="POST" class="login-form">
         <label for="correo">Correo:</label>
         <input type="email" name="correo" placeholder="Ingresa tu correo" required><br>
