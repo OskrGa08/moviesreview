@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h2>Iniciar Sesión</h2>
-<form method="POST">
-    <label for="correo">Correo:</label>
-    <input type="email" name="correo" required><br>
-    <label for="contraseña">Contraseña:</label>
-    <input type="password" name="contraseña" required><br>
-    <button type="submit">Iniciar Sesión</button>
-</form>
+<div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form method="POST" class="login-form">
+        <label for="correo">Correo:</label>
+        <input type="email" name="correo" placeholder="Ingresa tu correo" required><br>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" name="contraseña" placeholder="Ingresa tu contraseña" required><br>
+        <button type="submit" class="btn">Iniciar Sesión</button>
+    </form>
+</div>
 {% endblock %}

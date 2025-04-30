@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Registro</h2>
-<form method="POST">
-    <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" required><br>
-    <label for="correo">Correo:</label>
-    <input type="email" name="correo" required><br>
-    <label for="contraseña">Contraseña:</label>
-    <input type="password" name="contraseña" required><br>
-    <button type="submit">Registrarse</button>
-</form>
+<div class="login-container">
+    <h2>Registro</h2>
+    <form method="POST" class="login-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" placeholder="Ingresa tu nombre" required><br>
+        <label for="correo">Correo:</label>
+        <input type="email" name="correo" placeholder="Ingresa tu correo" required><br>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" name="contraseña" placeholder="Crea una contraseña" required><br>
+        <button type="submit" class="btn">Registrarse</button>
+    </form>
+</div>
 {% endblock %}

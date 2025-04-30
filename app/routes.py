@@ -78,15 +78,17 @@ def registro():
         correo = request.form['correo']
         contraseña = request.form['contraseña']
 
+        # Verificar si el correo ya está registrado
         usuario_existente = Usuario.query.filter_by(correo=correo).first()
         if usuario_existente:
             flash('El correo ya está registrado.')
             return redirect(url_for('main.registro'))
 
+        # Crear un nuevo usuario
         nuevo_usuario = Usuario(
             nombre=nombre,
             correo=correo,
-            contraseña=generate_password_hash(contraseña, method='sha256')
+            contraseña=generate_password_hash(contraseña, method='pbkdf2:sha256')
         )
         db.session.add(nuevo_usuario)
         db.session.commit()
@@ -102,10 +104,12 @@ def login():
         correo = request.form['correo']
         contraseña = request.form['contraseña']
 
+        # Verificar las credenciales
         usuario = Usuario.query.filter_by(correo=correo).first()
         if usuario and check_password_hash(usuario.contraseña, contraseña):
             login_user(usuario)
-            return redirect(url_for('main.index'))
+            flash('Has iniciado sesión exitosamente.')
+            return redirect(url_for('main.index'))  # Redirigir al inicio
         else:
             flash('Correo o contraseña incorrectos.')
 
@@ -118,3 +122,28 @@ def logout():
     logout_user()
     flash('Has cerrado sesión.')
     return redirect(url_for('main.index'))
+
+#Ruta para crear una nueva película
+@main.route('/pelicula/nueva', methods=['GET', 'POST'])
+@login_required
+def nueva_pelicula():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        director = request.form['director']
+        descripcion = request.form['descripcion']
+        fecha_lanzamiento = request.form['fecha_lanzamiento']
+        portada = request.form['portada']
+
+        nueva_pelicula = Pelicula(
+            titulo=titulo,
+            director=director,
+            descripcion=descripcion,
+            fecha_lanzamiento=fecha_lanzamiento,
+            portada=portada
+        )
+        db.session.add(nueva_pelicula)
+        db.session.commit()
+        flash('Película creada exitosamente.')
+        return redirect(url_for('main.index'))
+
+    return render_template('nueva_pelicula.html')

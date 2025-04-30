@@ -8,10 +8,13 @@
 </head>
 <body>
     <header>
+        <h1>Movies Reviews</h1>
         <nav>
             <a href="{{ url_for('main.index') }}">Inicio</a>
             {% if current_user.is_authenticated %}
+                <span>Bienvenido, {{ current_user.nombre }}</span>
                 <a href="{{ url_for('main.logout') }}">Cerrar Sesión</a>
+                <a href="{{ url_for('main.nueva_pelicula') }}">Crear Película</a>
             {% else %}
                 <a href="{{ url_for('main.login') }}">Iniciar Sesión</a>
                 <a href="{{ url_for('main.registro') }}">Registrarse</a>

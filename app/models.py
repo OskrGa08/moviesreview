@@ -7,6 +7,9 @@ class Usuario(UserMixin, db.Model):
     correo = db.Column(db.String(150), unique=True)
     contraseña = db.Column(db.String(255))
     resenas = db.relationship('Resena', backref='usuario', lazy=True)
+    
+    def get_id(self):
+        return str(self.id_usuario)  # Flask-Login espera que este método devuelva un string
 
 class Pelicula(db.Model):
     id_pelicula = db.Column(db.Integer, primary_key=True)
