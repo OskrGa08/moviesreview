@@ -9,15 +9,17 @@
 <body>
     <header>
         <h1>Movies Reviews</h1>
-        <nav>
+        <nav class="nav-bar">
             <a href="{{ url_for('main.index') }}">Inicio</a>
             {% if current_user.is_authenticated %}
-                <span>Bienvenido, {{ current_user.nombre }}</span>
-                <a href="{{ url_for('main.logout') }}">Cerrar Sesión</a>
+            <div class="user-info">
                 <a href="{{ url_for('main.nueva_pelicula') }}">Crear Película</a>
+                <span>Bienvenido, {{ current_user.nombre }}</span>
+                <a href="{{ url_for('main.logout') }}" class="logout-link">Cerrar Sesión</a>
+            </div>
             {% else %}
-                <a href="{{ url_for('main.login') }}">Iniciar Sesión</a>
                 <a href="{{ url_for('main.registro') }}">Registrarse</a>
+                <a href="{{ url_for('main.login') }}">Iniciar Sesión</a>
             {% endif %}
         </nav>
     </header>

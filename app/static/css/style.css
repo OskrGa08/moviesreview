@@ -24,10 +24,35 @@ main {
 }
 
 /* Estilo para la barra de navegación */
-.navbar {
-    background-color: #333; /* Fondo negro */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #333;
+    color: white;
+}
+
+/* Estilo para la información del usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info span {
+    font-size: 14px;
+    color: #fff;
+}
+
+.logout-link {
+    color: #ff4d4d;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
 }
 
 /* Estilo para los enlaces de navegación */
