@@ -29,4 +29,4 @@ class Resena(db.Model):
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'), nullable=False)
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'), nullable=False)
     usuario = db.relationship('Usuario', backref='resenas')
-    pelicula = db.relationship('Pelicula', backref='resenas')
+    pelicula = db.relationship('Pelicula', backref='lista_resenas')  # Cambiar el backref
