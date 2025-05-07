@@ -15,12 +15,13 @@ class Usuario(UserMixin, db.Model):
 class Pelicula(db.Model):
     __tablename__ = 'pelicula'
     id_pelicula = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(200))
-    director = db.Column(db.String(150))
-    descripcion = db.Column(db.Text)
-    fecha_lanzamiento = db.Column(db.Date)  # Asegúrate de que sea de tipo Date
-    portada = db.Column(db.String(255))  # Ruta del archivo de la portada
-    resenas = db.relationship('Resena', backref='pelicula', lazy=True)
+    titulo = db.Column(db.String(200), nullable=False)
+    director = db.Column(db.String(150), nullable=False)
+    descripcion = db.Column(db.Text, nullable=True)
+    fecha_lanzamiento = db.Column(db.Date, nullable=True)
+    portada = db.Column(db.String(255), nullable=True)
+    resenas = db.relationship('Resena', backref='pelicula', lazy=True)  # Relación con Resena
+
 
 class Resena(db.Model):
     __tablename__ = 'resena'
@@ -28,5 +29,4 @@ class Resena(db.Model):
     contenido = db.Column(db.Text, nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'), nullable=False)
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'), nullable=False)
-    usuario = db.relationship('Usuario', backref='resenas')
-    pelicula = db.relationship('Pelicula', backref='lista_resenas')  # Cambiar el backref
+    usuario = db.relationship('Usuario', backref='resenas')  # Relación con Usuario
