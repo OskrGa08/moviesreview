@@ -36,7 +36,7 @@ def detalle_pelicula(id):
         flash('Reseña agregada exitosamente.')
         return redirect(url_for('main.detalle_pelicula', id=id))
 
-    return render_template('detalle_pelicula.html', pelicula=pelicula)
+    return render_template('pelicula.html', pelicula=pelicula)
 
 # Ruta para editar una reseña
 @main.route('/resena/<int:id>/editar', methods=['GET', 'POST'])
