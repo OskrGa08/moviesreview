@@ -21,11 +21,10 @@ class Pelicula(db.Model):
     portada = db.Column(db.String(255), nullable=True)
     resenas = db.relationship('Resena', backref='pelicula', lazy=True)  # Relación con Resena
 
-
 class Resena(db.Model):
     __tablename__ = 'resena'
     id_resena = db.Column(db.Integer, primary_key=True)
-    comentario = db.Column(db.Text, nullable=False)  # Agregar este atributo
+    comentario = db.Column(db.Text, nullable=False)  # Esta columna debe existir en la base de datos
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'), nullable=False)
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'), nullable=False)
     usuario = db.relationship('Usuario', backref='resenas')  # Relación con Usuario
