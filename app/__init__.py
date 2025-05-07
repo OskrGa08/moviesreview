@@ -9,6 +9,8 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__)
     app.secret_key = os.getenv('SECRET_KEY')
+    
+    # Configurar la URI de la base de datos
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
