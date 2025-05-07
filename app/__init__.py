@@ -1,8 +1,8 @@
-import os
 from flask import Flask
-from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
+import os
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -22,15 +22,19 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # Importar modelos después de inicializar db
-    from .models import Usuario
-
     # Configurar Flask-Login
     login_manager.init_app(app)
-    login_manager.login_view = 'main.login'
+    login_manager.login_view = 'main.login'  # Ruta para la página de inicio de sesión
+
+    # Definir el callback user_loader
+    from app.models import Usuario
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return Usuario.query.get(int(user_id))
 
     # Registrar blueprints
-    from .routes import main
+    from app.routes import main
     app.register_blueprint(main)
 
     return app

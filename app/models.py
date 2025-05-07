@@ -5,9 +5,8 @@ class Usuario(UserMixin, db.Model):
     __tablename__ = 'usuario'
     id_usuario = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(150), nullable=False)
-    email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
-
+    correo = db.Column(db.String(150), unique=True, nullable=False)
+    contraseña = db.Column(db.String(150), nullable=False)
 
     def get_id(self):
         return str(self.id_usuario)
