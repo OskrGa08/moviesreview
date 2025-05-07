@@ -11,7 +11,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     peliculas = Pelicula.query.options(
-        joinedload(Pelicula.resenas).joinedload(Resena.usuario)
+        joinedload(Pelicula.resenas).joinedload('usuario')
     ).all()
     return render_template('index.html', peliculas=peliculas)
 

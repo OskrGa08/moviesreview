@@ -27,4 +27,6 @@ class Resena(db.Model):
     id_resena = db.Column(db.Integer, primary_key=True)
     contenido = db.Column(db.Text, nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'), nullable=False)
+    id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'), nullable=False)
     usuario = db.relationship('Usuario', backref='resenas')
+    pelicula = db.relationship('Pelicula', backref='resenas')
