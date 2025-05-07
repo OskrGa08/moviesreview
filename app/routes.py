@@ -11,7 +11,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     peliculas = Pelicula.query.options(
-        joinedload(Pelicula.resenas).joinedload(Resena.usuario)
+        joinedload(Pelicula.resenas).joinedload('usuario')
     ).all()
     return render_template('index.html', peliculas=peliculas)
 
@@ -24,17 +24,18 @@ def detalle_pelicula(id):
             flash('Debes iniciar sesión para agregar una reseña.')
             return redirect(url_for('main.login'))
 
-        contenido = request.form['comentario']  # Cambiar 'comentario' a 'contenido'
+        comentario = request.form['comentario']
         puntuacion = int(request.form['puntuacion'])
         nueva_resena = Resena(
-            contenido=contenido,  # Usar 'contenido' en lugar de 'comentario'
+            comentario=comentario,
+            puntuacion=puntuacion,
             id_usuario=current_user.id_usuario,
             id_pelicula=pelicula.id_pelicula
         )
         db.session.add(nueva_resena)
         db.session.commit()
         flash('Reseña agregada exitosamente.')
-        return redirect(url_for('main.pelicula', id=id))
+        return redirect(url_for('main.index'))
 
     return render_template('pelicula.html', pelicula=pelicula)
 
