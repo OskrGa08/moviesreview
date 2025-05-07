@@ -3,7 +3,6 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .models import Usuario
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -23,15 +22,15 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    # Importar modelos después de inicializar db
+    from .models import Usuario
+
     # Configurar Flask-Login
     login_manager.init_app(app)
-    login_manager.login_view = 'main.login'  # Ruta para la página de inicio de sesión
+    login_manager.login_view = 'main.login'
 
+    # Registrar blueprints
     from .routes import main
     app.register_blueprint(main)
 
     return app
-
-@login_manager.user_loader
-def load_user(user_id):
-    return Usuario.query.get(int(user_id))
