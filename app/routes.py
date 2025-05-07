@@ -34,7 +34,7 @@ def detalle_pelicula(id):
         db.session.add(nueva_resena)
         db.session.commit()
         flash('Reseña agregada exitosamente.')
-        return redirect(url_for('main.detalle_pelicula', id=id))
+        return redirect(url_for('main.pelicula', id=id))
 
     return render_template('pelicula.html', pelicula=pelicula)
 
