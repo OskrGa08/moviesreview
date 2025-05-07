@@ -3,14 +3,13 @@ from flask_login import UserMixin
 
 class Usuario(UserMixin, db.Model):
     id_usuario = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100))
-    correo = db.Column(db.String(150), unique=True)
-    contraseña = db.Column(db.String(255))
-    resenas = db.relationship('Resena', backref='usuario', lazy=True)
-    
-    def get_id(self):
-        return str(self.id_usuario)  # Flask-Login espera que este método devuelva un string
+    nombre = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
 
+    def get_id(self):
+        return str(self.id_usuario)
+    
 class Pelicula(db.Model):
     id_pelicula = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(200))
