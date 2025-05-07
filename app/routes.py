@@ -24,20 +24,19 @@ def detalle_pelicula(id):
             flash('Debes iniciar sesión para agregar una reseña.')
             return redirect(url_for('main.login'))
 
-        comentario = request.form['comentario']
+        contenido = request.form['comentario']  # Cambiar 'comentario' a 'contenido'
         puntuacion = int(request.form['puntuacion'])
         nueva_resena = Resena(
-            comentario=comentario,
-            puntuacion=puntuacion,
+            contenido=contenido,  # Usar 'contenido' en lugar de 'comentario'
             id_usuario=current_user.id_usuario,
             id_pelicula=pelicula.id_pelicula
         )
         db.session.add(nueva_resena)
         db.session.commit()
         flash('Reseña agregada exitosamente.')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.detalle_pelicula', id=id))
 
-    return render_template('pelicula.html', pelicula=pelicula)
+    return render_template('detalle_pelicula.html', pelicula=pelicula)
 
 # Ruta para editar una reseña
 @main.route('/resena/<int:id>/editar', methods=['GET', 'POST'])

@@ -5,7 +5,7 @@ class Usuario(UserMixin, db.Model):
     __tablename__ = 'usuario'
     id_usuario = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(150), nullable=False)
-    correo = db.Column(db.String(150), unique=True, nullable=False)
+    correo = db.Column(db.String(150), unique=True, nullable=False)  
     contraseña = db.Column(db.String(150), nullable=False)
 
     def get_id(self):
@@ -25,7 +25,7 @@ class Pelicula(db.Model):
 class Resena(db.Model):
     __tablename__ = 'resena'
     id_resena = db.Column(db.Integer, primary_key=True)
-    contenido = db.Column(db.Text, nullable=False)
+    comentario = db.Column(db.Text, nullable=False)  # Agregar este atributo
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'), nullable=False)
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id_pelicula'), nullable=False)
     usuario = db.relationship('Usuario', backref='resenas')  # Relación con Usuario
